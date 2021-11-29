@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes Machine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <button id="tweet"><img id="img" src="tweet.png" alt=""><br>Tweet it</button>
+        
+            <div id="quotes">Click new Quotes to get </div>
+                 
+            <div id="author"></div>
+       
+        
+        <button id="btn">new Quote</button>
+    </div>
+</body>
+<script>
+    // .josn function convert json to js object 
+
+    //  fetch('https://type.fit/api/quotes')
+    //  .then(data=>data)
+    //  .then(actualData=>{
+    //      console.log(actualData)
+    //      document.getElementById('quotes').innerText=actualData
+    //  })
+
+    const btn = document.querySelector('#btn')
+const tweet =document.getElementById('tweet');
+
+    getNewQuotes = () => {
+        const rNum = Math.floor(Math.random() * 1642)
+        return rNum;
+
+    }
+
+    getQuotes = async () => {
+
+        try {
+            data = await fetch('https://type.fit/api/quotes')
+            realData = await data.json();
+
+            document.getElementById('quotes').innerText = realData[getNewQuotes()].text
+            document.getElementById('author').innerHTML = `Author : ${realData[getNewQuotes()].author===null?"unknown":realData[getNewQuotes()].author}`
+            
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+
+       
+
+        //    console.log( realData[getNewQuotes()].text);
+
+
+    }
+
+  
+    
+    tweetNow = ()=>{
+            tweetLink = `https://twitter.com/intent/tweet?text=${  qoute = realData[getNewQuotes()].text}`
+            window.open(tweetLink)
+
+
+        }
+    btn.addEventListener('click', getQuotes)
+    
+    tweet.addEventListener('click',tweetNow)
+
+
+</script>
+
+</html>
